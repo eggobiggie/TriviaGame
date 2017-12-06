@@ -1,10 +1,7 @@
 $(document).ready(function() {
-    
-      
-    
+     
       var questionBank = {
           
-    
         currentQuestion: 1,
         question1: {
             fearQuestion: "What is Jackie Chan afraid of?",
@@ -117,68 +114,8 @@ $(document).ready(function() {
 
         $(".startText").on("click", function() {
 
-            //Initial question and answers
+            //Hide Start Button
             $(".startText").hide();
-            $("#time-remaining").show();
-            $("#question").text(questionBank.question1.fearQuestion).show();
-            $("#answer1").text(questionBank.question1.fearAnswer1.text).show();
-            $("#answer2").text(questionBank.question1.fearAnswer2.text).show();
-            $("#answer3").text(questionBank.question1.fearAnswer3.text).show();
-            $("#answer4").text(questionBank.question1.fearAnswer4.text).show();
-
-            $("#answer1").on("click", function() {
-                $("#win-text").show();
-                $("#win-gif").html("<img src='./assets/images/jackieladder.gif' class='center-block'>").show();
-                $("#question").text(questionBank.question1.fearQuestion).hide();
-                $("#answer1").text(questionBank.question1.fearAnswer1.text).hide();
-                $("#answer2").text(questionBank.question1.fearAnswer2.text).hide();
-                $("#answer3").text(questionBank.question1.fearAnswer3.text).hide();
-                $("#answer4").text(questionBank.question1.fearAnswer4.text).hide();
-                correct++;
-            });
-
-            $("#answer2").on("click", function() {
-                question1IncorrectFunction();
-                $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show();                               
-            });
-
-            $("#answer3").on("click", function() {
-                question1IncorrectFunction();
-                $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show();                       
-            });
-
-            $("#answer4").on("click", function() {
-                question1IncorrectFunction();
-                $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show();                                
-            });
-
-            //FUNCTION for if the clicked answer is incorrect
-            function question1IncorrectFunction() {
-                $("#lose-text").text("Sorry, that's wrong!").show();
-                $("#correct-answer-text").show();
-                $("#lose-gif").html("<img src='./assets/images/jackiehahano.gif' class='center-block'>").show();
-                $("#question").text(questionBank).hide();
-                $("#answer1").text(questionBank).hide();
-                $("#answer2").text(questionBank).hide();
-                $("#answer3").text(questionBank).hide();
-                $("#answer4").text(questionBank).hide();    
-                incorrect++;
-                console.log(incorrect);
-            }
-
-            //FUNCTION for timeout/unanswered
-            function outtaTime() {
-                $("#lose-text").text("You ran out of time!");
-                $("#correct-answer-text").show();
-                $("#lose-gif").html("<img src='./assets/images/jackiewindface.gif' class='center-block'>").show();
-                $("#question").text(questionBank).hide();
-                $("#answer1").text(questionBank).hide();
-                $("#answer2").text(questionBank).hide();
-                $("#answer3").text(questionBank).hide();
-                $("#answer4").text(questionBank).hide();
-                unanswered++;
-                console.log(unanswered);
-            }
 
             // TIMER for 30 second interval
             var number = 30;
@@ -203,48 +140,284 @@ $(document).ready(function() {
             }
 
             run();
+            question1Function();
+
+             //FIVE SECOND COUNTDOWN
+             var number1 = 5;
+             var intervalId1;
+ 
+             function run1() {
+                 intervalId1 = setInterval(decrement1, 1000);
+             }
+ 
+             function decrement1() {
+                 number1--;
+                 console.log(number1);
+                 if (number1 === 0) {
+                     stop1();
+                     number = 30;
+                     run();
+                 } 
+             }
+ 
+             function stop1() {
+                 clearInterval(intervalId1);
+             }
+
             
-            // TIMER for 5 second interval
-            var number1 = 5;
-            var intervalId1;
+            function question1Function() {
+                $("#time-remaining").show();
+                $("#question").text(questionBank.question1.fearQuestion).show();
+                $("#answer1").text(questionBank.question1.fearAnswer1.text).show();
+                $("#answer2").text(questionBank.question1.fearAnswer2.text).show();
+                $("#answer3").text(questionBank.question1.fearAnswer3.text).show();
+                $("#answer4").text(questionBank.question1.fearAnswer4.text).show();
 
-            function run1() {
-                intervalId1 = setInterval(decrement1, 1000);
+                $("#answer1").on("click", function() {
+                    $("#win-gif").html("<img src='./assets/images/jackieladder.gif' class='center-block'>").show();
+                    correctAnswerFunction();
+                    run1();
+                    stop();
+                });
+
+                $("#answer2").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show();    
+                    run1(); 
+                    stop();  
+                              
+                });
+
+                $("#answer3").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show(); 
+                    run1(); 
+                    stop();  
+                                 
+                });
+
+                $("#answer4").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question1.fearAnswer1.text).show();    
+                    run1();  
+                    stop(); 
+                              
+                });
+            }
+             
+            // SECOND SET OF QUESTION/ANSWERS
+            function question2Function() {
+
+                $("#time-remaining").show();
+                $("#question").text(questionBank.question2.debutQuestion).show();
+                $("#answer1").text(questionBank.question2.debutAnswer1.text).show();
+                $("#answer2").text(questionBank.question2.debutAnswer2.text).show();
+                $("#answer3").text(questionBank.question2.debutAnswer3.text).show();
+                $("#answer4").text(questionBank.question2.debutAnswer4.text).show();
+                $("#lose-text").text("You ran out of time!").hide();
+                $("#correct-answer-text").hide();
+                $("#correct-answer").text(questionBank.question1.fearAnswer1.text).hide();
+                $("#lose-gif").html("<img src='./assets/images/jackiewindface.gif' class='center-block'>").hide();
+                $("#win-gif").html("<img src='./assets/images/jackieladder.gif' class='center-block'>").hide();
+                $("#win-text").hide();
+
+                $("#answer4").on("click", function() {
+                    $("#win-gif").html("<img src='./assets/images/jackieheadbob.gif' class='center-block'>").show();
+                    correctAnswerFunction();  
+                    run1();
+                    stop();
+                    
+                });
+
+                $("#answer2").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question2.debutAnswer4.text).show();   
+                    run1();
+                    stop();    
+                                     
+                });
+
+                $("#answer3").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question2.debutAnswer4.text).show();  
+                    run1();
+                    stop();  
+                                       
+                });
+
+                $("#answer1").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question2.debutAnswer4.text).show();    
+                    run1();   
+                    stop(); 
+                                     
+                });
             }
 
-            function decrement1() {
-                number1--;
-                console.log(number1);
-                if (number1 === 0) {
-                    stop1();
-                    number = 30;
-                    run();
-                    $("#time-remaining").show();
-                    $("#question").text(questionBank.question2.debutQuestion).show();
-                    $("#answer1").text(questionBank.question2.debutAnswer1.text).show();
-                    $("#answer2").text(questionBank.question2.debutAnswer2.text).show();
-                    $("#answer3").text(questionBank.question2.debutAnswer3.text).show();
-                    $("#answer4").text(questionBank.question2.debutAnswer4.text).show();
-                    $("#lose-text").text("You ran out of time!").hide();
-                    $("#correct-answer-text").hide();
-                    $("#correct-answer").text(questionBank.question1.fearAnswer1.text).hide();
-                    $("#lose-gif").html("<img src='./assets/images/jackiewindface.gif' class='center-block'>").hide();
-                } 
+      // THIRD SET OF QUESTION/ANSWERS
+            function question3Function() {
+                $("#time-remaining").show();
+                $("#question").text(questionBank.question3.nameQuestion).show();
+                $("#answer1").text(questionBank.question3.nameAnswer1.text).show();
+                $("#answer2").text(questionBank.question3.nameAnswer2.text).show();
+                $("#answer3").text(questionBank.question3.nameAnswer3.text).show();
+                $("#answer4").text(questionBank.question3.nameAnswer4.text).show();
+
+                $("#answer2").on("click", function() {
+                    $("#win-gif").html("<img src='./assets/images/jackiethumbsup.gif' class='center-block'>").show();
+                    correctAnswerFunction();
+                    run1();
+                    stop();
+                   
+                });
+
+                $("#answer1").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question3.nameAnswer2.text).show();   
+                    run1();    
+                    stop();  
+                                          
+                });
+
+                $("#answer3").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question3.nameAnswer2.text).show();  
+                    run1();
+                    stop();  
+                                     
+                });
+
+                $("#answer4").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question3.nameAnswer2.text).show();    
+                    run1();        
+                    stop();
+                                       
+                });
+             }
+
+             
+
+            // FOURTH SET OF QUESTIONS
+            function question4Function() {
+                $("#time-remaining").show();
+                $("#question").text(questionBank.question4.noseQuestion).show();
+                $("#answer1").text(questionBank.question4.noseAnswer1.text).show();
+                $("#answer2").text(questionBank.question4.noseAnswer2.text).show();
+                $("#answer3").text(questionBank.question4.noseAnswer3.text).show();
+                $("#answer4").text(questionBank.question4.noseAnswer4.text).show();
+
+                $("#answer3").on("click", function() {
+                    $("#win-gif").html("<img src='./assets/images/jackiechunli.gif' class='center-block'>").show();
+                    correctAnswerFunction();
+                    run1();
+                    stop();
+                });
+
+                $("#answer2").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question4.noseAnswer3.text).show();   
+                    run1();    
+                    stop();                        
+                });
+
+                $("#answer1").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question4.noseAnswer3.text).show();  
+                    run1();
+                    stop();                     
+                });
+
+                $("#answer4").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question4.noseAnswer3.text).show();    
+                    run1();        
+                    stop();                    
+                });
             }
 
-            function stop1() {
-                clearInterval(intervalId1);
+            // FIFTH SET OF QUESTIONS
+            function question5Function() {
+                $("#time-remaining").show();
+                $("#question").text(questionBank.question5.recordQuestion).show();
+                $("#answer1").text(questionBank.question5.recordAnswer1.text).show();
+                $("#answer2").text(questionBank.question5.recordAnswer2.text).show();
+                $("#answer3").text(questionBank.question5.recordAnswer3.text).show();
+                $("#answer4").text(questionBank.question5.recordAnswer4.text).show();
+
+                $("#answer1").on("click", function() {
+                    $("#win-gif").html("<img src='./assets/images/jackiedance.gif' class='center-block'>").show();
+                    correctAnswerFunction();
+                    run1();
+                    stop();
+                });
+
+                $("#answer2").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question5.recordAnswer1.text).show();   
+                    run1();    
+                    stop();                        
+                });
+
+                $("#answer3").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question5.recordAnswer1.text).show();  
+                    run1();
+                    stop();                     
+                });
+
+                $("#answer4").on("click", function() {
+                    questionIncorrectFunction();
+                    $("#correct-answer").text(questionBank.question5.recordAnswer1.text).show();    
+                    run1();        
+                    stop();                    
+                });
+            }
+        
+            //FUNCTION for if the clicked answer is incorrect
+            function questionIncorrectFunction() {
+                $("#lose-text").text("Sorry, that's wrong!").show();
+                $("#correct-answer-text").show();
+                $("#lose-gif").html("<img src='./assets/images/jackiehahano.gif' class='center-block'>").show();
+                $("#question").text(questionBank).hide();
+                $("#answer1").text(questionBank).hide();
+                $("#answer2").text(questionBank).hide();
+                $("#answer3").text(questionBank).hide();
+                $("#answer4").text(questionBank).hide();
+                number1 = 5;    
+                incorrect++;
+                console.log(incorrect);
             }
 
+            //FUNCTION for if answer is correct:
+            function correctAnswerFunction() {
+                $("#win-text").show();
+                $("#question").text(questionBank).hide();
+                $("#answer1").text(questionBank).hide();
+                $("#answer2").text(questionBank).hide();
+                $("#answer3").text(questionBank).hide();
+                $("#answer4").text(questionBank).hide();  
+                number1 = 5;  
+                correct++;
+                console.log(correct);
+            }
 
-
-    
-
+            // FUNCTION for timeout/unanswered
+            function outtaTime() {
+                $("#lose-text").text("You ran out of time!");
+                $("#correct-answer-text").show();
+                $("#lose-gif").html("<img src='./assets/images/jackiewindface.gif' class='center-block'>").show();
+                $("#question").text(questionBank).hide();
+                $("#answer1").text(questionBank).hide();
+                $("#answer2").text(questionBank).hide();
+                $("#answer3").text(questionBank).hide();
+                $("#answer4").text(questionBank).hide();
+                number1 = 5;
+                unanswered++;
+                console.log(unanswered);
+            }
             
         });
-
-   
-
 
     // end of document.ready    
     });
