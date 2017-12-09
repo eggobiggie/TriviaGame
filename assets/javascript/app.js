@@ -39,14 +39,6 @@ $(document).ready(function() {
             }]
         };
 
-        //Iterate through the questions and answers
-        for (i = 0; i < questionBank.questionList.length; i++) {
-            console.log(questionBank.questionList[i]);
-                for (j = 0; j < questionBank.questionList[i].answerList.length; j++) {
-                    console.log(questionBank.questionList[i].answerList[j]);
-                }
-        }
-
     var clickedAnswer;
     var correct = 0;
     var incorrect = 0;
@@ -59,9 +51,6 @@ $(document).ready(function() {
         $(".startText").hide();
         check();
         run();
-        
-        
-        
        
         function check() {
             if (currentQuestionNum === 0) {
@@ -72,8 +61,6 @@ $(document).ready(function() {
                 $("#answer2").text(questionBank.questionList[currentQuestionNum].answerList[1]).show();
                 $("#answer3").text(questionBank.questionList[currentQuestionNum].answerList[2]).show();
                 $("#answer4").text(questionBank.questionList[currentQuestionNum].answerList[3]).show();
-
-                // run();
 
                 $("#answer1").on("click", function() {
                     clickedAnswer = 0;
@@ -190,55 +177,46 @@ $(document).ready(function() {
             }
         }
 
-
         //Correct Answer Function
         function correctAnswer1Function() {
             
-        if (clickedAnswer === questionBank.questionList[currentQuestionNum].correctAnswer) {
-                correct++;
-                $("#win-text").show();
-                $("#win-gif").html(questionBank.questionList[0].correctGifHTML).show();
-                $("#question").text(questionBank.questionList[0].question).hide();
-                $("#answer1").text(questionBank.questionList[0].answerList[0]).hide();
-                $("#answer2").text(questionBank.questionList[0].answerList[1]).hide();
-                $("#answer3").text(questionBank.questionList[0].answerList[2]).hide();
-                $("#answer4").text(questionBank.questionList[0].answerList[3]).hide();
-                console.log("yes");
+            if (clickedAnswer === questionBank.questionList[currentQuestionNum].correctAnswer) {
+                    correct++;
+                    $("#win-text").show();
+                    $("#win-gif").html(questionBank.questionList[0].correctGifHTML).show();
+                    hide();
+                    console.log("yes");
+                        if (currentQuestionNum === 1) {
+                            $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
+                            $("#win-gif").html(questionBank.questionList[1].correctGifHTML).show();
+                        } else if (currentQuestionNum === 2) {
+                            $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
+                            $("#win-gif").html(questionBank.questionList[2].correctGifHTML).show();
+                        } else if (currentQuestionNum === 3) {
+                            $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
+                            $("#win-gif").html(questionBank.questionList[3].correctGifHTML).show();
+                        } else if (currentQuestionNum === 4) {
+                            $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
+                            $("#win-gif").html(questionBank.questionList[4].correctGifHTML).show();
+                        }
+                } else {
+                    incorrect++;
+                    $("#lose-text").text("Nope!").show();
+                    $("#lose-gif").html(questionBank.incorrectGifHTML).show();
+                    hide();
+                    $("#correct-answer-text").show();
+                    $("#correct-answer").text(questionBank.questionList[0].answerList[0]).show();
+                    console.log("no");
                     if (currentQuestionNum === 1) {
-                        $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
-                        $("#win-gif").html(questionBank.questionList[1].correctGifHTML).show();
+                        $("#correct-answer").text(questionBank.questionList[1].answerList[3]).show();
                     } else if (currentQuestionNum === 2) {
-                        $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
-                        $("#win-gif").html(questionBank.questionList[2].correctGifHTML).show();
+                        $("#correct-answer").text(questionBank.questionList[2].answerList[1]).show();
                     } else if (currentQuestionNum === 3) {
-                        $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
-                        $("#win-gif").html(questionBank.questionList[3].correctGifHTML).show();
+                        $("#correct-answer").text(questionBank.questionList[3].answerList[2]).show();
                     } else if (currentQuestionNum === 4) {
-                        $("#win-gif").html(questionBank.questionList[0].correctGifHTML).hide();
-                        $("#win-gif").html(questionBank.questionList[4].correctGifHTML).show();
+                        $("#correct-answer").text(questionBank.questionList[4].answerList[0]).show();
                     }
-            } else {
-                incorrect++;
-                $("#lose-text").show();
-                $("#lose-gif").html(questionBank.incorrectGifHTML).show();
-                $("#question").text(questionBank.questionList[0].question).hide();
-                $("#answer1").text(questionBank.questionList[0].answerList[0]).hide();
-                $("#answer2").text(questionBank.questionList[0].answerList[1]).hide();
-                $("#answer3").text(questionBank.questionList[0].answerList[2]).hide();
-                $("#answer4").text(questionBank.questionList[0].answerList[3]).hide();
-                $("#correct-answer-text").show();
-                $("#correct-answer").text(questionBank.questionList[0].answerList[0]).show();
-                console.log("no");
-                if (currentQuestionNum === 1) {
-                    $("#correct-answer").text(questionBank.questionList[1].answerList[3]).show();
-                } else if (currentQuestionNum === 2) {
-                    $("#correct-answer").text(questionBank.questionList[2].answerList[1]).show();
-                } else if (currentQuestionNum === 3) {
-                    $("#correct-answer").text(questionBank.questionList[3].answerList[2]).show();
-                } else if (currentQuestionNum === 4) {
-                    $("#correct-answer").text(questionBank.questionList[4].answerList[0]).show();
                 }
-            }
         }
 
         // TIMER for 30 second interval
@@ -256,6 +234,7 @@ $(document).ready(function() {
                    number1 = 5;
                    stop();
                    run1();
+                   outtaTime();
                }
            }
 
@@ -287,6 +266,7 @@ $(document).ready(function() {
                 clearInterval(intervalId1);
             }
 
+            //FUNCTION for resetting game
             function resetStuff() {
                 $("#start-over").on("click", function() {
                     correct = 0;
@@ -300,10 +280,45 @@ $(document).ready(function() {
                     run();
                 });
             }
+
+            //FUNCTION for Timeout
+            function outtaTime() {
+                hideForOuttaTime();
+                unanswered++;
+                $("#lose-gif").html(questionBank.outtaTimeGif).show();
+                $("#lose-text").text("You're out of time!").show();
+                $("#correct-answer-text").show();
+                if (currentQuestionNum === 0) {
+                    $("#correct-answer").text(questionBank.questionList[0].answerList[0]).show();
+                } else if (currentQuestionNum === 1) {
+                    $("#correct-answer").text(questionBank.questionList[1].answerList[3]).show();
+                } else if (currentQuestionNum === 2) {
+                    $("#correct-answer").text(questionBank.questionList[2].answerList[1]).show();
+                } else if (currentQuestionNum === 3) {
+                    $("#correct-answer").text(questionBank.questionList[3].answerList[2]).show();
+                } else if (currentQuestionNum === 4) {
+                    $("#correct-answer").text(questionBank.questionList[4].answerList[0]).show();
+                }
+            }
+
+            //FUNCTION to HIDE question and answers
+            function hide() {
+                for (i = 0; i < questionBank.questionList.length; i++) {
+                    $("#question").text(questionBank.questionList[i]).hide();
+                    console.log(questionBank.questionList[i]);
+                        for (j = 0; j < questionBank.questionList[i].answerList.length; j++) {
+                            $("#answer1").text(questionBank.questionList[i].answerList[j]).hide();
+                            $("#answer2").text(questionBank.questionList[i].answerList[j]).hide();
+                            $("#answer3").text(questionBank.questionList[i].answerList[j]).hide();
+                            $("#answer4").text(questionBank.questionList[i].answerList[j]).hide();
+                        }
+                }
+            }
             
-    //END OF STARTEXT CLICK FUNCTION
+    //END OF STARTTEXT CLICK FUNCTION
     });    
 
+    //FUNCTION to hide final tally page elements
     function hideStuff() {
         $("#start-over").on("click", function() {
             $("#start-over").hide();
@@ -322,8 +337,6 @@ $(document).ready(function() {
             $("#answer4").text(questionBank.questionList[0].answerList[3]).show();
         });
     }
-    
-    
 
 // end of document.ready    
 });
