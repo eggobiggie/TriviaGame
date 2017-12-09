@@ -72,7 +72,6 @@ body {
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-size: 30px;
   font-weight: bold;
-  /* margin-top: 70px; */
   margin-bottom: 20px;
   display: none;
 }
@@ -124,4 +123,9 @@ body {
   border-radius: 5px;
   background-color: #EFEFEF;
   display: none;
+}
+
+#start-over:hover {
+  background-color: black;
+  color: #EFEFEF;
 }

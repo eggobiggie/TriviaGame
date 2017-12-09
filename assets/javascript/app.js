@@ -283,7 +283,7 @@ $(document).ready(function() {
 
             //FUNCTION for Timeout
             function outtaTime() {
-                hideForOuttaTime();
+                hide();
                 unanswered++;
                 $("#lose-gif").html(questionBank.outtaTimeGif).show();
                 $("#lose-text").text("You're out of time!").show();
@@ -305,12 +305,14 @@ $(document).ready(function() {
             function hide() {
                 for (i = 0; i < questionBank.questionList.length; i++) {
                     $("#question").text(questionBank.questionList[i]).hide();
+                    console.log("hidden");
                     console.log(questionBank.questionList[i]);
                         for (j = 0; j < questionBank.questionList[i].answerList.length; j++) {
                             $("#answer1").text(questionBank.questionList[i].answerList[j]).hide();
                             $("#answer2").text(questionBank.questionList[i].answerList[j]).hide();
                             $("#answer3").text(questionBank.questionList[i].answerList[j]).hide();
                             $("#answer4").text(questionBank.questionList[i].answerList[j]).hide();
+                            console.log("hidden");
                         }
                 }
             }
